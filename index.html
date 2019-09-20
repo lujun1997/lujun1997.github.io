@@ -2,29 +2,129 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>对象的概念</title>
+    <title>选项卡切换页面结构</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        #outer{
+            width: 606px;
+            margin: 0 auto;
+            border: 1px solid #2ba5eb;
+        }
+        #title{
+            overflow: hidden;
+        }
+        #title>h3{
+            width: 200px;
+            border: 1px solid #ccc;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            color: #333;
+            float: left;
+        }
+        #con{
+
+        }
+        #con>li{
+            width: 606px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            font-size: 40px;
+            font-weight: bold;
+            display: none;
+        }
+        #title>.active{
+            background-color: red;
+            color: #fff;
+        }
+        #con>.show{
+            display: block;
+        }
+    </style>
+
 </head>
 <body>
-<script>
-    for (var i = 0; i < 5; i++) {
-        setTimeout(function () {
-            console.log(i);
-        },i)
-    }
-    
-    /*对象是一个复合值，将很多值（基本类型和对象类型）合并在一起
-    我们可以通过对象的属性名访问对象的属性中的值
-    属性名是标识符，使我们自己定义的
-    了解：js中的对象可以被称作为一种数据结构，hash（散列），散列表（hashtable），字典（dictionary）,关联数组（associative array）
-    */
-    /*在js中 对象分为3类：
-        1、内置对象：比如 数组  函数  日期 正则等等等
-        2、宿主对象：浏览器定义的  比如HTMLElement
-        3、自定义对象：我们自己定义的
+    <div id="outer">
+        <div id="title">
+            <h3 class="active">标题一</h3>
+            <h3>标题二</h3>
+            <h3>标题三</h3>
+        </div>
+        <ul id="con">
+            <li class="show">内容一</li>
+            <li>内容二</li>
+            <li>内容三</li>
+        </ul>
+    </div>
 
-    对象的属性分为两类：
-        1、自有属性：我们直接在对象中定义的属性
-        2、继承属性：在对象的原型中继承得来的属性*/
-</script>
+    <script>
+        /*
+            *选项卡切换
+         */
+        var oTitle = document.getElementById("title");
+        var oCon = document.getElementById("con");
+        var oH3s = oTitle.getElementsByTagName("h3");
+        var oLis = oCon.getElementsByTagName("li");
+
+        // js目前没有方法获取一个元素在它父级中的下标
+        /*var obj = {};
+        obj.name = "lily";//给对象添加一个自定义属性 name 并赋值*/
+        // 我自己添加下标
+        //     1、元素也是对象，我们可以给元素添加自定义的属性index 并设置值
+        //     2、给元素扩展自定义对象 保存它的下标
+
+        /*for (var i = 0; i < oH3s.length; i++) {
+            oH3s[i].index = i;
+        }*/
+
+
+        // 外层这个for循环仍然是只绑定点击事件用的
+        for (var i = 0; i < oH3s.length; i++) {
+            // 这句话借用了 绑定事件的for循环，我们就可以少书写一个for循环
+            oH3s[i].index = i;
+
+            oH3s[i].onclick = function () {
+                // 里边这个for循环 仅仅是遍历所有的h3和li 然后清空样式
+                for (var i = 0; i < oH3s.length; i++) {
+                    oH3s[i].className = "";
+                    oLis[i].className = "";
+                }
+                this.className = "active";
+                // this这个元素是它父级中的下标为几，那么oLis的下标就是几
+                oLis[this.index].className = "show";
+
+            }
+        }
+
+       /* oH3s[2].onclick = function () {
+
+            for (var i = 0; i < oH3s.length; i++) {
+                oH3s[i].className = "";
+                oLis[i].className = "";
+            }
+            this.className = "active";
+            // this这个元素是它父级中的下标为几，那么oLis的下标就是几
+            oLis[this.a].className = "show";
+
+        }
+        oH3s[0].onclick = function () {
+            for (var i = 0; i < oH3s.length; i++) {
+                oH3s[i].className = "";
+                oLis[i].className = "";
+            }
+            this.className = "active";
+            oLis[this.a].className = "show";
+        }
+        oH3s[1].onclick = function () {
+            for (var i = 0; i < oH3s.length; i++) {
+                oH3s[i].className = "";
+                oLis[i].className = "";
+            }
+            this.className = "active";
+            oLis[this.a].className = "show";
+        }*/
+
+    </script>
 </body>
 </html>
