@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>五边形</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        #myCanvas{
+            background-color: pink;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="400"></canvas>
+<script>
+    var oMyCanvas = document.getElementById("myCanvas");
+    var ctx = oMyCanvas.getContext("2d");
+
+    // 五边形外切圆的半径：
+    var R = 100;
+    // 先把画布坐标轴移到圆的中心点位置
+    // 第一个点的角度是18度 后边是 18+72*i 度
+
+    ctx.beginPath();
+    // 移动画布的坐标
+    ctx.translate(200,200);
+    // 确定起点
+    ctx.moveTo(R * Math.cos(18 * Math.PI / 180),- R * Math.sin(18 * Math.PI / 180));
+    for (var i = 1; i < 5; i++) {
+        ctx.lineTo(R * Math.cos((18 + 72 * i) * Math.PI / 180),- R * Math.sin((18 + 72 * i) * Math.PI / 180));
+    }
+    ctx.closePath();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "red";
+    ctx.stroke();
+</script>
+</body>
+</html>
